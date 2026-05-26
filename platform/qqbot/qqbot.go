@@ -1069,7 +1069,7 @@ func (p *Platform) handleInteractionCreate(data json.RawMessage) {
 	slog.Debug("qqbot: INTERACTION_CREATE", "id", d.ID, "button_data", d.Data.Resolved.ButtonData)
 
 	// ACK the interaction (required by QQ Bot API to prevent "请求超时" on buttons)
-	p.ackInteraction(d.ID)
+	_ = p.ackInteraction(d.ID)
 
 	// Parse button_data: perm:<decision>:<session_key>
 	buttonData := d.Data.Resolved.ButtonData

@@ -1143,8 +1143,8 @@ func TestAckInteraction(t *testing.T) {
 	if method != "PUT" {
 		t.Errorf("method = %q, want %q", method, "PUT")
 	}
-	if reqURL != "/v2/interactions/interact-1" {
-		t.Errorf("url = %q, want %q", reqURL, "/v2/interactions/interact-1")
+	if reqURL != "/interactions/interact-1" {
+		t.Errorf("url = %q, want %q", reqURL, "/interactions/interact-1")
 	}
 }
 
