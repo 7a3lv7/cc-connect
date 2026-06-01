@@ -235,7 +235,7 @@ var _ core.Platform = (*Platform)(nil)
 func TestDownloadAttachmentImages_ChecksStatusCode(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
-		fmt.Fprint(w, "not found")
+		_, _ = fmt.Fprint(w, "not found")
 	}))
 	defer server.Close()
 
@@ -281,7 +281,7 @@ func TestDownloadAttachmentImages_Success(t *testing.T) {
 func TestDownloadAttachmentFiles_ChecksStatusCode(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, "internal error")
+		_, _ = fmt.Fprint(w, "internal error")
 	}))
 	defer server.Close()
 
@@ -362,12 +362,12 @@ func TestUploadRichMedia_IncludesFileNameForFileType4(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Handle token request
 		if r.URL.Path == "/app/getAppAccessToken" {
-			fmt.Fprint(w, `{"access_token":"test-token","expires_in":"7200"}`)
+			_, _ = fmt.Fprint(w, `{"access_token":"test-token","expires_in":"7200"}`)
 			return
 		}
 		// Handle file upload request
-		json.NewDecoder(r.Body).Decode(&receivedBody)
-		fmt.Fprint(w, `{"file_info":"test-file-info"}`)
+		_ = json.NewDecoder(r.Body).Decode(&receivedBody)
+		_, _ = fmt.Fprint(w, `{"file_info":"test-file-info"}`)
 	}))
 	defer server.Close()
 
@@ -414,12 +414,12 @@ func TestUploadRichMedia_NoFileNameForOtherFileTypes(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Handle token request
 		if r.URL.Path == "/app/getAppAccessToken" {
-			fmt.Fprint(w, `{"access_token":"test-token","expires_in":"7200"}`)
+			_, _ = fmt.Fprint(w, `{"access_token":"test-token","expires_in":"7200"}`)
 			return
 		}
 		// Handle file upload request
-		json.NewDecoder(r.Body).Decode(&receivedBody)
-		fmt.Fprint(w, `{"file_info":"test-file-info"}`)
+		_ = json.NewDecoder(r.Body).Decode(&receivedBody)
+		_, _ = fmt.Fprint(w, `{"file_info":"test-file-info"}`)
 	}))
 	defer server.Close()
 
@@ -598,9 +598,9 @@ func TestHandleGroupMessage_QuoteFromMsgElements(t *testing.T) {
 func TestSendWithButtons_GroupMessage(t *testing.T) {
 	var receivedBody map[string]any
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		json.NewDecoder(r.Body).Decode(&receivedBody)
+		_ = json.NewDecoder(r.Body).Decode(&receivedBody)
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, `{"id": "msg-out"}`)
+		_, _ = fmt.Fprint(w, `{"id": "msg-out"}`)
 	}))
 	defer server.Close()
 
@@ -742,9 +742,9 @@ func TestSendWithButtons_GroupMessage(t *testing.T) {
 func TestSendWithButtons_C2CMessage(t *testing.T) {
 	var receivedBody map[string]any
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		json.NewDecoder(r.Body).Decode(&receivedBody)
+		_ = json.NewDecoder(r.Body).Decode(&receivedBody)
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, `{"id": "msg-out"}`)
+		_, _ = fmt.Fprint(w, `{"id": "msg-out"}`)
 	}))
 	defer server.Close()
 
@@ -795,9 +795,9 @@ func TestSendWithButtons_C2CMessage(t *testing.T) {
 func TestSendWithButtons_ShareSessionInChannel(t *testing.T) {
 	var receivedBody map[string]any
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		json.NewDecoder(r.Body).Decode(&receivedBody)
+		_ = json.NewDecoder(r.Body).Decode(&receivedBody)
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, `{"id": "msg-out"}`)
+		_, _ = fmt.Fprint(w, `{"id": "msg-out"}`)
 	}))
 	defer server.Close()
 
@@ -1022,9 +1022,9 @@ func TestSendWithButtons_InvalidReplyCtx(t *testing.T) {
 func TestSendWithButtons_EmptyEventMsgID(t *testing.T) {
 	var receivedBody map[string]any
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		json.NewDecoder(r.Body).Decode(&receivedBody)
+		_ = json.NewDecoder(r.Body).Decode(&receivedBody)
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, `{"id": "msg-out"}`)
+		_, _ = fmt.Fprint(w, `{"id": "msg-out"}`)
 	}))
 	defer server.Close()
 
